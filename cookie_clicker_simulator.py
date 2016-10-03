@@ -3,6 +3,7 @@ Cookie Clicker Simulator
 """
 
 import math
+import random
 
 import cookie_clicker_building_info as cc_buildinfo
 
@@ -218,6 +219,33 @@ def strategy_expensive(cookies, cps, history, time_left, build_info):
 
     return most_expensive[1]
 
+def strategy_random(cookies, cps, history, time_left, build_info):
+    """
+    A strategy that randomly chooses the next item to purchase
+
+    Note that this strategy will only choose that will be affordable
+    in the time remaining in the simulation
+
+    This strategy can sometimes be less effective than the expensive strategy,
+    but it frequently outperforms the cheapest strategy quite significantly
+    """
+
+    items = build_info.build_items()
+    costs = [build_info.get_cost(item) for item in items]
+    builds = sorted(zip(costs,items))
+
+    earnable_cookies = cookies + time_left * cps
+
+    if builds[0][0] > earnable_cookies:
+        return None
+    else:
+        num_choices = len(builds)
+        choice = random.choice(range(num_choices))
+        while builds[choice][0] > earnable_cookies:
+            choice = random.choice(range(num_choices))
+
+    return builds[choice][1]
+
 def strategy_optimized(cookies, cps, history, time_left, build_info):
     """
     An optimized strategy that chooses the item
@@ -261,6 +289,7 @@ def run():
     run_strategy("Cursor Only", SIM_TIME, strategy_cursor_broken)
     run_strategy("Cheapest", SIM_TIME, strategy_cheap)
     run_strategy("Most Expensive", SIM_TIME, strategy_expensive)
+    run_strategy("Random Choice", SIM_TIME, strategy_random)
     run_strategy("Optimized", SIM_TIME, strategy_optimized)
 
 
