@@ -13,6 +13,6 @@ This project simulates a game of Cookie Clicker and demonstrates the effectivene
 
 ![Example image of output of Cookie Clicker simulator](images/Screen Shot 2016-10-03 at 12.58.16 PM.png)
 
-Note: to also view the purchase history of the simulation(s), uncomment the second print line in the run_strategy() function.
+Note: to also view the purchase history of the simulation(s), uncomment the second print line in run_strategy().
 
 ![Image showing where to uncomment purchase history print statement](images/Screen Shot 2016-10-03 at 1.17.43 PM.png)
